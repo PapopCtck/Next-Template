@@ -15,8 +15,8 @@ export default {
   // - language
   SET_LANGUAGE_SUCCESS: 'SET_LANGUAGE_SUCCESS',
   // env
-  envDomainApi: process.env.DOMAIN_API,
-  envCookie: process.env.DOMAIN_COOKIE,
+  envDomainApi: process.env.NEXT_PUBLIC_DOMAIN_API,
+  envCookie: process.env.NEXT_PUBLIC_DOMAIN_COOKIE,
   // default value
   defaultLanguage: 'th',
   languageTH: 'th',
