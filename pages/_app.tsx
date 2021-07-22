@@ -3,9 +3,9 @@ import { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@emotion/react';
 
-import configureStore from '../stores/config';
-import { GlobalStyle } from '../utils';
-import defaultTheme from '../themes/default';
+import configureStore from '@/stores/config';
+import { GlobalStyle } from '@/utils';
+import defaultTheme from '@/themes/default';
 
 const store = configureStore();
 

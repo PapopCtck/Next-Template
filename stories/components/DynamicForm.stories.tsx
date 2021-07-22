@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { DynamicForm, IDynamicForm, InputWithLength, Form, IDynamicFormTemplate } from '../../components';
+import { DynamicForm, IDynamicForm, InputWithLength, Form, IDynamicFormTemplate } from '@/components';
 
 export default {
   title: 'Components/DynamicForm',
@@ -39,10 +39,13 @@ export default {
 } as Meta;
 
 const Template: Story<IDynamicForm> = (args) => <DynamicForm {...args} />;
+Template.parameters = {
+  jest: ['DynamicForm.test.tsx'],
+};
 
 let data = [{ id: uuidv4(), 'value': {} }];
 
-const RenderTemplate = (props: IDynamicFormTemplate) => <Form>
+const RenderTemplate = (props: IDynamicFormTemplate) => <Form key={props.key}>
   <InputWithLength label={`input ${props.index}`}/>
 </Form>;
 

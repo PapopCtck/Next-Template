@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react';
 
-import { InputWithLength, IInputWithLength, Form, Button } from '../../components';
+import { InputWithLength, IInputWithLength, Form, Button } from '@/components';
 
 export default {
   title: 'Components/InputWithLength',
@@ -38,6 +38,9 @@ export default {
 } as Meta;
 
 const Template: Story<IInputWithLength> = (args) => <InputWithLength {...args} />;
+Template.parameters = {
+  jest: ['InputWithLength.test.tsx'],
+};
 
 export const NumberInput = Template.bind({});
 NumberInput.args = {
@@ -46,7 +49,7 @@ NumberInput.args = {
   maxLength: 20,
 };
 
-const TemplateCustomValidate: Story<IInputWithLength> = (args) => <Form>
+const TemplateCustomValidate: Story<IInputWithLength> = (args) => <Form role="form">
   <InputWithLength {...args} />
   <Button type="submit">Submit</Button>
 </Form>;

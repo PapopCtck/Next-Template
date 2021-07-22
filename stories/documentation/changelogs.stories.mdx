@@ -6,6 +6,91 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <br />
 
+## Release v.0.1.0
+
+### This is a beta version as it's currently being test
+
+**Dependency**
+
+- Added `@testing-library` as dev-dependency
+
+- Added `jest, babel-jest` and as dev-dependency for jest testing support.
+
+- Changed `lodash` to `lodash-es` to support ES module import.
+
+- Moved all `@types` to dev dependency.
+
+- Bumped `storybook` to `storybook@6.3.4`
+
+**Core**
+
+- Added `jest.config` and `jest.setup` files for setting up testing
+
+- Added `spaces.ts` for centralized spaces variable
+
+- Updated all `padding` and `margin` to the new spaces variable
+
+- Added `__test__` folder for all unit test files
+
+- Added `MockIntersectionObserver` for test cases that are using `intersectionObserverApi`
+
+- Added `MockReactI18n` for test cases that are using `React-i18n`
+
+- Updated `UploadInput` to use border-radius from theme
+
+- Added `test-results` to `.gitignore`
+
+- Updated all relative paths to alias paths from `./` instead.
+
+- Splited `components` interfaces and styles to it's own files.
+
+- Added `index` for each `components`
+
+- Updated `components/index` to lazy import and export all components. This will improve the package size as it'll utilize `next/dynamic` code splitting.
+
+- Updated `prestorybook` command
+
+- Added `no-multiple-empty-lines` eslint rule.
+
+- Disabled `cookie` functions in `stores/utils` by default to encourage httpOnly cookie.
+
+**Test cases**
+
+- Added `Alert` component test cases
+
+- Added `Avatar` component test cases
+
+- Added `DynamicForm` component test cases
+
+- Added `InputWithLength` component test cases
+
+- Added `OTPInput` component test cases
+
+- Added `Pagination` component test cases
+
+- Added `ProgressiveImage` component test cases
+
+- Added `TextArea` component test cases
+
+- Added `UploadInput` component test cases
+
+- Added `Home` page example test cases
+
+- Moved `App` test cases to `__test__` Folder
+
+- Updated all test cases to support lazy loading components.
+
+
+**Storybook**
+
+- Added `Testing` section to `configuration` and `libraries` stories
+
+**Bugfixes**
+
+- Fix storybook link in `introduction` and `configuration` stories
+
+- Fix `UploadInput` inconsistent size between preview and upload lable
+
 ## Release v.0.0.1
 
 ### This is a beta version as it's currently being test
