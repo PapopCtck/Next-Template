@@ -9,7 +9,8 @@ module.exports = {
   ],
   "addons": [
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
+    "@storybook/addon-essentials",
+    "@storybook/addon-jest"
   ],
   "webpackFinal": async (config) => {
     return {
@@ -21,6 +22,7 @@ module.exports = {
           "@emotion/core": toPath("node_modules/@emotion/react"),
           '@emotion/styled': toPath('node_modules/@emotion/styled'),
           "emotion-theming": toPath("node_modules/@emotion/react"),
+          "@": toPath(".")
         },
       },
     }
