@@ -1,10 +1,11 @@
-import React, { createRef, CSSProperties, ReactElement, ReactNode } from 'react';
+import React, { createRef, ReactElement, ReactNode } from 'react';
 
-import { withTheme, Theme } from '@emotion/react';
+import { withTheme } from '@emotion/react';
 import { ChevronDown } from 'react-feather';
 
-import { Checkbox } from '../Checkbox/Checkbox';
-import * as styled from './StyledSelect';
+import Checkbox from '../Checkbox';
+import * as styled from './Select.styles';
+import { ICustomSelectProps, ICustomSelectState, ICustomSelectData, ISelect } from './Select.interfaces';
 
 const { SelectCarret, SelectContainer, 
   SelectedText, SelectOption, 
@@ -16,40 +17,6 @@ declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     name?: string;
   }
-}
-
-export interface ICustomSelectData {
-  target: {
-    name?: string,
-    value: string,
-    id?: string,
-  }
-}
-
-export interface ICustomSelectProps {
-  value?: string,
-  children?: ReactNode,
-  placeholder?: string,
-  onChange: ({ 'target': { name, value, id } }:ICustomSelectData) => void,
-  name?: string,
-  id?: string,
-  disabled?: boolean,
-  allKeyword?: string,
-  showSelect?: boolean,
-  customCarret?: ReactElement,
-  theme?: Theme,
-}
-
-export interface ISelect extends ICustomSelectProps{
-  children?: ReactNode,
-  block?: boolean,
-  containerClassname?: string,
-  containerStyle?: CSSProperties,
-}
-
-export interface ICustomSelectState {
-  showOptionList: boolean,
-  defaultSelectText: ReactNode,
 }
 class CustomSelect extends React.Component<ICustomSelectProps,ICustomSelectState> {
   constructor(props: ICustomSelectProps) {

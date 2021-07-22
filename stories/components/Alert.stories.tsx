@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Alert, IAlert } from '../../components';
+import { Alert, IAlert } from '@/components';
 
 export default {
   title: 'Components/Alert',
@@ -41,6 +41,9 @@ export default {
 } as Meta;
 
 const Template: Story<IAlert> = (args) => <Alert {...args} />;
+Template.parameters = {
+  jest: ['Avatar.test.tsx'],
+};
 
 export const Success = Template.bind({});
 Success.args = {

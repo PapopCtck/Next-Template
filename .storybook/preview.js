@@ -8,9 +8,12 @@ export const parameters = {
 }
 
 import { ThemeProvider } from '@emotion/react';
+import { withTests } from '@storybook/addon-jest';
 
 import { GlobalStyle } from "../utils";
 import defaultTheme from '../themes/default';
+
+import results from '../__test-results__/.jest-results.json';
 
 export const decorators = [(Story) => (
   <>
@@ -21,4 +24,4 @@ export const decorators = [(Story) => (
   <ThemeProvider theme={defaultTheme}>
     <Story />
   </ThemeProvider>
-)];
+), withTests({ results })];

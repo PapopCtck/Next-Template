@@ -1,39 +1,9 @@
-import { CSSProperties, MouseEventHandler, ReactElement } from 'react';
-import styled from '@emotion/styled';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
 
 import { Skeleton } from '../Skeleton/Skeleton';
-
-export interface IAvatar {
-  borderRadius?: string,
-  src?: string,
-  srcset?: string,
-  name: string,
-  color?: string,
-  colors?: Array<string>,
-  size: string,
-  style?: CSSProperties,
-  className?: string,
-  loading?: boolean,
-  onClick?: MouseEventHandler,
-}
-
-export interface IStoryAvatarContainer {
-  borderColor?: string,
-}
-
-export interface IStoryAvatar extends IAvatar {
-  borderColor?: string,
-  loading?: boolean,
-}
-
-export interface IStoryAvatarContainer {
-  borderColor?: string,
-}
-
-export interface IStoryAvatar extends IAvatar {
-  borderColor?: string,
-}
+import { IAvatar, IStoryAvatar } from './Avatar.interfaces';
+import { StyledStoryAvatarContainer } from './Avatar.styles';
 
 const defaultColors = [
   '#2ecc71', // emerald
@@ -116,14 +86,6 @@ export const Avatar = (props: IAvatar): ReactElement => {
       </div>
     </div>);
 };
-
-export const StyledStoryAvatarContainer = styled.div<IStoryAvatarContainer>`
-  border-radius: 50%;
-  border: 1px solid ${props => props.borderColor ?? props.theme.primaryColor};
-  padding: 2px;
-  width: fit-content;
-`;
-
 export const StoryAvatar = (props: IStoryAvatar): ReactElement => (
   <StyledStoryAvatarContainer className="styled-story-avatar-container" borderColor={props.borderColor}>
     {

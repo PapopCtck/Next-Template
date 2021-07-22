@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import Colors from '../assets/colors.svg';
 import Repo from '../assets/repo.svg';
+import Code from '../assets/code-brackets.svg';
 
 <Meta title="Documentation/Configurations" />
 
@@ -69,6 +70,8 @@ import Repo from '../assets/repo.svg';
   - 📕 [Stories](#stories)
 - ♻️ [Redux](#redux)
 - 📕 [Writing Stories](#writing-stories)
+- ⚙️ [Writing Test](#writing-test)
+  - ⚙️❤️📕 [Integration with storybook](#integration-with-storybook)
 
 ## Theme
 Before you start to develop your app. You might want to config a `theme` and `colors` to help you get the right look for your app just a bit faster.
@@ -120,7 +123,7 @@ Note: Please **do not** use base colors directly. For base color, use `color6` i
 
 <a
 className="link-item"
- href="/story/documentation-colors--page"
+ href="?path=/story/documentation-colors--page"
 >
    <img src={Colors} alt="colors" />
     <span>
@@ -328,6 +331,21 @@ stories
 
 ```
 
+### Test Cases
+
+Like stories, all test cases should replicate folder structure of `src` folder.
+
+```
+__test__
+|_ pages
+    |_ page story
+|_ components
+    |_ component story
+|_ __mocks__ //for library mocking
+
+```
+
+
 ## Redux
 
 Redux configs are available in `src/stores`
@@ -373,3 +391,30 @@ To learn how to write story please visit.
       Configure, customize, and extend
     </span>
 </a>
+
+## Writing Test
+
+This project uses the [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) as a primary unit testing library.
+
+To learn how to write a test using `@testing-library/react` please visit.
+
+<a className="link-item" href="https://testing-library.com/docs/react-testing-library/intro/" target="_blank">
+    <img src={Code} alt="code" />
+    <span>
+      <strong>Testing library documentation</strong>
+      for all of your testing needs.
+    </span>
+</a>
+
+### integration with Storybook
+
+By simply adding
+
+```js
+
+Template.parameters = {
+  jest: ['YourComponent.test.tsx'],
+};
+
+```
+to any page or component story. Storybook will automatically import the generated test result.

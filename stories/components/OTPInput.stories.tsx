@@ -1,7 +1,7 @@
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react';
 
-import { OTPInput, IOTPInput } from '../../components';
+import { OTPInput, IOTPInput } from '@/components';
 
 export default {
   title: 'Components/OTPInput',
@@ -42,6 +42,9 @@ export default {
 } as Meta;
 
 const Template: Story<IOTPInput> = (args) => <OTPInput {...args} />;
+Template.parameters = {
+  jest: ['OTPInput.test.tsx'],
+};
 
 export const Simple = Template.bind({});
 Simple.args = {

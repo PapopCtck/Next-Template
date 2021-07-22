@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react';
 
-import { Pagination, IPagination } from '../../components';
+import { Pagination, IPagination } from '@/components';
 
 export default {
   title: 'Components/Pagination',
@@ -44,6 +44,9 @@ export default {
 } as Meta;
 
 const Template: Story<IPagination> = (args) => <Pagination {...args} />;
+Template.parameters = {
+  jest: ['Pagination.test.tsx'],
+};
 
 export const Simple = Template.bind({});
 Simple.args = {
