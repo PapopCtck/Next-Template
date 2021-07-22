@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#test result
+.jest-results.json
+__test-results__

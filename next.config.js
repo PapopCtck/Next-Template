@@ -1,5 +1,5 @@
 module.exports = {
-  // images: {
-  //   domains: ['your image domain'],
-  // },
+  images: {
+    domains: ['zos.alipayobjects.com'],
+  },
 };
