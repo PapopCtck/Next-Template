@@ -1,47 +1,10 @@
-import styled from '@emotion/styled';
+import React from 'react';
 
-import { Button } from '../Button/Button';
+import Button from '../Button';
+import { IHeader } from './Header.interfaces';
+import { StyledHeader } from './Header.styles';
 
-export interface IHeaderProps {
-  user?: Record<string,unknown>;
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
-}
-
-export const StyledHeader = styled.header`
-  .wrapper {
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-  }
-
-  svg {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  h1 {
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 1;
-    margin: 6px 0 6px 10px;
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .app-name{
-    margin-right: auto;
-  }
-
-  button + button {
-    margin-left: 10px;
-  }
-`;
-
-export const Header: React.FC<IHeaderProps> = ({ user, onLogin, onLogout, onCreateAccount }: IHeaderProps) => (<StyledHeader>
+export const Header: React.FC<IHeader> = ({ user, onLogin, onLogout, onCreateAccount }: IHeader) => (<StyledHeader>
   <div className="wrapper">
     <div className="app-name">
       <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

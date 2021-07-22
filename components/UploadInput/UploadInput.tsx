@@ -1,168 +1,9 @@
-import React, { HTMLAttributes, ReactElement, RefObject, useRef, useState } from 'react';
-import isEmpty from 'lodash/isEmpty';
-import styled from '@emotion/styled';
+import React, { ReactElement, RefObject, useRef, useState } from 'react';
+import { isEmpty } from 'lodash-es';
+
 import { XCircle } from 'react-feather';
-
-
-export interface IUploadInputValue {
-  selectedFile: string,
-  file?: File,
-  base64?: string,
-  fileType?: string, 
-}
-
-export interface IUploadInputChangeEvent<T>{
-  target: { 
-    id?: string, 
-    value: T }
-}
-
-export interface IUploadInputBase extends HTMLAttributes<HTMLInputElement> {
-  label?: string,
-  dropText?: string,
-  className?: string,
-  id?: string,
-  multiple?: boolean,
-  deleteButton?: ReactElement,
-  maxFileSize?: number,
-  sizeExceedWarning?: string,
-  maxImage?: number,
-  maxVideo?: number,
-  limit?: boolean,
-  limitExceedWarning?: string,
-  supportedImageExtensions?: Array<string>,
-  supportedVideoExtensions?: Array<string>,
-  required?: boolean,
-  validated?: boolean,
-  width?: string,
-  height?: string,
-  objectFit?: string,
-}
-
-export interface IUploadInputSingle extends Omit<IUploadInputBase,'onChange'> {
-  onChange?: (target : IUploadInputChangeEvent<IUploadInputValue | Record<string,never>>) => void,
-  value: IUploadInputValue | Record<string,never>,
-}
-
-export interface IUploadInputMultiple extends Omit<IUploadInputBase,'onChange'> {
-  onChange?: (target : IUploadInputChangeEvent<Array<IUploadInputValue> | Array<never>>) => void,
-  value: Array<IUploadInputValue> | Array<never>,
-}
-
-export type IUploadInput = IUploadInputSingle | IUploadInputMultiple;
-interface Size{
-  width: string, 
-  height: string,
-}
-
-interface Image {
-  objectFit: string,
-}
-
-interface ILabel extends Size{
-  error: boolean,
-  validated: boolean,
-}
-
-const Container = styled.div`
-  width: 100%;
-`;
-
-
-const Label = styled.label<ILabel>`
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px 10px;
-    background: ${props => props.theme.disabledColor};
-    border-radius: 8px;
-    height: ${props => props.height};
-    width: ${props => props.width};
-    max-width: 100%;
-    transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-    border: 1px solid ${props => props.validated && props.error ? props.theme.errorColor : 'transparent'};
-    &:hover,
-    &:active {
-      border: 1px solid ${props => props.theme.primaryColor};
-      transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
-`;
-
-const PreviewImgContainer = styled.div<Size>`
-    background: ${props => props.theme.disabledColor};
-    border-radius: 8px;
-    height: ${props => props.height};
-    width: ${props => props.width};
-    max-width: 100%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-    border: 1px solid transparent;
-    padding: 10px;
-    &:hover,
-    &:active {
-      border: 1px solid $yellow;
-      transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-      .del-image {
-        opacity: 1;
-        transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-        backdrop-filter: blur(3px) grayscale(0.6) brightness(0.8);
-      }
-    }
-  &.video{
-    &:hover {
-      .del-image {
-        backdrop-filter: none;
-      }
-    }
-    .del-image {
-      bottom: 0;
-      height: auto;
-      top: auto;
-      z-index: 1;
-    }
-    .preview-video {
-      width: 100%;
-      height: 100%;
-    }
-  }
-`;
-
-const DeleteImageButton = styled.div`
-  position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      opacity: 0;
-      color: ${props => props.theme.textColorLight};
-      justify-content: center;
-      align-items: center;
-      transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-      i {
-        font-size: 30px;
-      }
-`;
-
-const PreviewImg = styled.img<Image>`
-    width: 100%;
-    height: 100%;
-    object-fit: ${props => props.objectFit};
-`;
-
-const PreviewImagesContainer = styled.div`
-   .preview-image-container {
-      margin: 0 5px 10px;
-      vertical-align: top;
-    }
-`;
-
-const ImageUpload = styled.input`
-      display: none;
-`;
+import { IUploadInput, IUploadInputMultiple, IUploadInputSingle, IUploadInputValue } from './UploadInput.interfaces';
+import { Container,Label,PreviewImgContainer, DeleteImageButton, PreviewImg, ImageUpload, PreviewImagesContainer } from './UploadInput.styles';
 
 export const UploadInput = ({ multiple = false,...rest }: IUploadInput): ReactElement =>
   multiple ? <UploadInputMultiple {...rest as IUploadInputMultiple} /> : <UploadInputSingle {...rest as IUploadInputSingle} />;
@@ -277,7 +118,7 @@ export const UploadInputSingle = ({
         </video>
       </PreviewImgContainer> : <PreviewImgContainer width={width} height={height} className="preview-image-container">
         {deleteButton && <DeleteImageButton className="del-image" onClick={() => handleDelete()}>{deleteButton}</DeleteImageButton>}
-        <PreviewImg objectFit={objectFit} className="preview-image" src={val.selectedFile} />
+        <PreviewImg objectFit={objectFit} className="preview-image" alt="preview" src={val.selectedFile} />
       </PreviewImgContainer>
   );
 
@@ -425,7 +266,7 @@ export const UploadInputMultiple = ({
         </video>
       </PreviewImgContainer> : <PreviewImgContainer width={width} height={height} key={idx} className="preview-image-container">
         {deleteButton && <DeleteImageButton className="del-image" onClick={() => handleDelete(val)}>{deleteButton}</DeleteImageButton>}
-        <PreviewImg objectFit={objectFit} className="preview-image" src={val.selectedFile} />
+        <PreviewImg objectFit={objectFit} className="preview-image" alt={`preview-${idx}`} src={val.selectedFile} />
       </PreviewImgContainer>
   );
 

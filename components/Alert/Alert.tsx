@@ -1,77 +1,14 @@
-import { cloneElement, CSSProperties, HTMLAttributes, Key, ReactElement, ReactNode, useEffect, useState } from 'react';
-import { XCircle, CheckCircle, AlertCircle, X } from 'react-feather';
-import styled from '@emotion/styled';
+import React, { cloneElement, ReactElement, useEffect, useState } from 'react';
+import { XCircle, CheckCircle, AlertCircle } from 'react-feather';
 import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
-import { AnimatePresence,motion } from 'framer-motion'; 
+import { AnimatePresence } from 'framer-motion'; 
 import { v4 as uuidv4 } from 'uuid';
 
-import { colorMix } from '../../utils';
-import { State } from '../../pages/_app';
-
-export interface IAlert {
-  className?: string,
-  type?: 'success' | 'danger' | 'warning',
-  closable?: boolean,
-  show?: boolean,
-  onCloseClick?: () => void,
-  children?: ReactNode,
-  styleCloseBtn?: CSSProperties,
-  styleBanner?: CSSProperties,
-  duration?: number,
-  absolute?: boolean,
-  key?: Key | null,
-  standalone?: boolean,
-}
-
-interface IStyledAlert {
-  show: boolean,
-  absolute: boolean,
-  standalone: boolean,
-}
-
-export const StyledAlert = styled(motion.div)<IStyledAlert>(props => ({
-  maxHeight: 0,
-  overflow: 'hidden',
-  transition: 'max-height 0.5s ease-in',
-  borderRadius: '4px',
-  width: 'fit-content',
-  minWidth: '200px',
-  margin: '15px auto',
-  fontSize: props.theme.fontSizeBase,
-  position: 'relative',
-}),
-props => props.show && ({
-  padding: '10px 15px',
-  maxHeight: 'fit-content',
-}),
-props => props.absolute && ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  margin: '0 auto',
-}),
-props => props.standalone && ({
-  opacity: props.show ? 1 : 0,
-  transition: 'opacity 0.5s ease-in',
-}),
-);
-
-const Close = styled(X)`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-`;
-
-const Icon = styled.span`
-  font-size: 0;
-  margin-right: 10px;
-`;
-
-const AlertContent = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import { colorMix } from '@/utils';
+import { State } from '@/pages/_app';
+import { IAlert, IReduxAlerts } from './Alert.interfaces';
+import { StyledAlert, Close, AlertContent, Icon, AlertsContainer } from './Alert.styles';
 
 export const Alert = ({
   className,
@@ -174,22 +111,7 @@ export const Alert = ({
   );
 };
 
-export interface IAlerts extends HTMLAttributes<HTMLDivElement> {
-  stateName?: string,
-}
-
-const AlertsContainer = styled.div`
-  position: fixed;
-  z-index: 999999;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 100%;
-`;
-
-
-export const ReduxAlerts = ({ stateName = 'alerts' , ...props }: IAlerts): ReactElement => {
+export const ReduxAlerts = ({ stateName = 'alerts' , ...props }: IReduxAlerts): ReactElement => {
   const [alerts, setAlerts] = useState<Array<ReactElement>>([]);
   const alertsState = useSelector((state: State) => state[stateName]);
 

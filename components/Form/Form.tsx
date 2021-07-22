@@ -1,50 +1,7 @@
-import { FormEvent, FormEventHandler, HTMLAttributes, ReactElement, useState } from 'react';
-import styled from '@emotion/styled';
-import { colorMix } from '../../utils';
+import React, { FormEvent, ReactElement, useState } from 'react';
 
-interface IFormClassname {
-  className?: string[],
-}
-export interface IFormBase extends Omit<HTMLAttributes<HTMLFormElement>,keyof IFormClassname> {
-  handlesubmit?: FormEventHandler,
-  customValidate?: boolean,
-  beforeValidate?: () => void,
-}
-
-export type IForm = IFormBase & IFormClassname;
-
-export const StyledForm = styled.form`
- &.was-validated {
-    input:invalid {
-      border: 1px solid ${props => props.theme.errorColor};
-      & + .error-message {
-        color: ${props => props.theme.errorColor};
-        position: relative;
-        top: -5px;
-        max-height: fit-content;
-        opacity: 1;
-        display: inline;
-      }
-      &:focus{
-        outline: none;
-        box-shadow: ${props => `${props.theme.boxShadowInput} ${colorMix(props.theme.errorColor, 2)}`};
-      }
-    }
-    input {
-      &.showcustom {
-        border: 1px solid ${props => props.theme.errorColor} !important;
-        & + .error-message {
-          display: inline;
-          color: ${props => props.theme.errorColor};
-          position: relative;
-          top: -5px;
-          max-height: fit-content;
-          opacity: 1;
-        }
-      }
-    }
-  }
-`;
+import { IForm } from './Form.interfaces';
+import { StyledForm } from './Form.styles';
 
 export const Form = (props: IForm): ReactElement => {
   const [isValidated,setValidated] = useState(false);

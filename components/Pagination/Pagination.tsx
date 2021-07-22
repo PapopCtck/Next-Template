@@ -1,82 +1,8 @@
-import { CSSProperties, ReactElement, useEffect, useRef, useState } from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
-export interface IPagination {
-  onPageChange?: (index: number) => void, 
-  count: number,
-  nextLabel?: string, 
-  nextStyle?: CSSProperties,
-  prevLabel?: string,
-  prevStyle?: CSSProperties,
-  pageRangeDisplayed: number,
-  marginPagesDisplayed: number, 
-  breakLabel?: string,
-  currentPage?: number,
-}
+import { IPagination } from './Pagination.interfaces';
+import { Container,Li, Ul, Prev, Next } from './Pagination.styles';
 
-interface Li {
-  active?: boolean
-  disabled?: boolean,
-}
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-`;
-
-const Ul = styled.ul`
-  border-radius: 0.25rem;
-  padding-left: 0;
-  list-style: none;
-`;
-
-const Li = styled.li<Li>(
-  () => css`
-    display: inline-flex;
-    border: 1px solid;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    cursor: pointer;
-    position: relative;
-    transition: .3s all;
-  `,
-  props => props.disabled ? css`
-    color:  ${props.theme.disabledColor};
-    cursor: default;
-` : css`
-  &:hover {
-      color: ${props.theme.linkColor};
-      border-color: ${props.theme.linkColor};
-      z-index: 99;
-    }
-`, props => props.active ? css`
-color: ${props.theme.textColorLight};
-background: ${props.theme.primaryColor};
-border-color: ${props.theme.linkColor};
-&:hover {
-      color: ${props.theme.textColorLight};
-      border-color: ${props.theme.textColorLight};
-      z-index: 99;
-    }
-`
-    : css`
-color: ${props.theme.textColorSecondary};
-background: ${props.theme.componentBackgroundColor};
-border-color:  ${props.theme.disabledColor};
-`,
-);
-
-const Next = styled(Li)`
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-`;
-
-
-const Prev = styled(Li)`
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-`;
 
 export const Pagination = ({ 
   onPageChange, count, nextLabel = 'Next', nextStyle,prevLabel = 'Prev',prevStyle,
@@ -129,7 +55,7 @@ export const Pagination = ({
         if (activePage - 1 !== marginPagesDisplayed + halfDisplayRange){
           // >>> add breakLabel to front
           pagesButtons.push(
-            <Li>{breakLabel}</Li>,
+            <Li key="breaklabel-front">{breakLabel}</Li>,
           );
         }
       } 
@@ -162,7 +88,7 @@ export const Pagination = ({
         if (count - activePage !== marginPagesDisplayed + halfDisplayRange){
           // >>> add breakLabel to back
           pagesButtons.push(
-            <Li>{breakLabel}</Li>,
+            <Li key="breaklabel-back">{breakLabel}</Li>,
           );
         }
         // >> add margin page to the back
